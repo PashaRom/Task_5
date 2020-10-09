@@ -1,0 +1,52 @@
+{
+  "activeBrowser": "chrome",
+  "browsers": {
+    "chrome": {
+      "pathToDriver": "\\A1QE\\WebDrivers\\chromedriver_win32",
+      "options": {
+        "leaveBrowserRunning": "true",
+        "startSizeWindow": "start-maximized",
+        "mode": "--incognito",
+        "implicitWait": 5,        
+        "intl.accept_languages": "ru"
+      }
+    },
+    "firefox": {
+      "pathToDriver": "\\A1QE\\WebDrivers\\geckodriver-v0.27.0-win32",
+      "options": {
+        "startSizeWindow": "start-maximized",
+        "implicitWait": 5,        
+        "intl.accept_languages": "be"
+      }
+    }
+  },
+  "url": "https://my.kaspersky.com",
+  "pathDownloadFiles": "Download\\",
+  "testDataFile": "testdata.xlsx",
+  "waits": {
+    "fluent": 30,
+    "explicitWait": {
+      "TextToBePresentInElement": {
+        "slider": 10
+      }
+    },
+    "polly": {
+      "emailWeiting": 40,
+      "captchaWeiting": {
+        "numberWeiting": 100,
+        "time": 3
+      }
+    }
+  },
+  "emailSetting": {
+    "pop3": {
+      "server": "pop.yandex.ru",
+      "port": 995,
+      "ssl": true
+    },
+    "user": {
+      "login": "",
+      "password": ""
+    }
+  }
+}
