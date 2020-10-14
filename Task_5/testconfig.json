@@ -31,7 +31,7 @@
       }
     },
     "polly": {
-      "emailWeiting": 40,
+      "emailWeiting": 60,
       "captchaWeiting": {
         "numberWeiting": 100,
         "time": 3
@@ -45,8 +45,8 @@
       "ssl": true
     },
     "user": {
-      "login": "",
-      "password": ""
+      "login": "pashar@tut.by",
+      "password": "Pashar1981!"
     }
   }
 }

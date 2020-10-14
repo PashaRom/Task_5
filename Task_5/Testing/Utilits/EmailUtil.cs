@@ -7,7 +7,7 @@ using Polly;
 using Polly.Retry;
 namespace Task_5.Utilits
 {
-    public static class Email
+    public static class EmailUtil
     {
         public static string GetContentEmail(DateTime timeBeforeSending, string targetEmail)
         {

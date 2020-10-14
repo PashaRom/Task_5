@@ -8,7 +8,7 @@ namespace Test.Framework
 {
     public class CreatorWebDriver {
          public IWebDriver CreateDriver(NameOfBrowser nameOfBrowser)
-        {
+         {
             IWebDriver webDriver = null;
             try
             {
@@ -58,7 +58,8 @@ namespace Test.Framework
                 Log.Fatal(ex, "Unexpected error occurred during creating WebDriwer");
                 return webDriver;
             }
-        }        
+        }
+        
         private IWebDriver CreateChromeDriver(string pathToDriver, ChromeOptions chromeOptions, TimeSpan implicitWait) {
             IWebDriver chromeDriver = null;
             try
@@ -75,6 +76,7 @@ namespace Test.Framework
                 return chromeDriver;
             }            
         }
+
         private IWebDriver CreateFirefoxDriver(string pathToDriver, FirefoxOptions firefoxOptions, TimeSpan implicitWait)
         {
             IWebDriver firefoxDriver = null;

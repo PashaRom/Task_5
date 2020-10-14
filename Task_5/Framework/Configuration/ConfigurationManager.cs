@@ -6,6 +6,7 @@ namespace Test.Framework.Configuration
     {
         public static ConfigurationGetter Configuration;
         public static ConfigurationGetter TestData;
+
         static ConfigurationManager() 
         {
             try { 

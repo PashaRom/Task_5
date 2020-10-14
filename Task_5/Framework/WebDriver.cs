@@ -9,41 +9,54 @@ namespace Test.Framework
 {
     public class WebDriver
     {
-        private static IWebDriver webDriver;                    
-        public WebDriver()
-        {           
-            try 
+
+        private static WebDriver instanceWebDriver = null;
+        private static IWebDriver driver;
+        
+        private WebDriver()
+        {            
+            try
             {                
-                Log.Info("Create web driver.");
-                string activeBrowserName = ConfigurationManager.Configuration.GetStringParam("activeBrowser");
-                if(activeBrowserName.ToLower().Trim().Equals(NameOfBrowser.Chrome.ToString().ToLower()))
-                    webDriver = new CreatorWebDriver().CreateDriver(NameOfBrowser.Chrome);
-                else if(activeBrowserName.ToLower().Trim().Equals(NameOfBrowser.Firefox.ToString().ToLower()))
-                    webDriver = new CreatorWebDriver().CreateDriver(NameOfBrowser.Firefox);                
+                 Log.Info("Create web driver.");
+                 string activeBrowserName = ConfigurationManager.Configuration.GetStringParam("activeBrowser");
+                 if (activeBrowserName.ToLower().Trim().Equals(NameOfBrowser.Chrome.ToString().ToLower()))
+                    driver = new CreatorWebDriver().CreateDriver(NameOfBrowser.Chrome);
+                 else if (activeBrowserName.ToLower().Trim().Equals(NameOfBrowser.Firefox.ToString().ToLower()))
+                    driver = new CreatorWebDriver().CreateDriver(NameOfBrowser.Firefox);               
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 Log.Fatal(ex, "The WebDriver has not been created.");
             }
         }
+        
+        public static WebDriver InstanceWebDriver()
+        {
+            if (instanceWebDriver == null) {                
+                instanceWebDriver = new WebDriver();
+            }
+            return instanceWebDriver;
+        }
+
         public static string Url
         {
             get
             {                
-                return webDriver.Url;
+                return driver.Url;
             }
             set
             {
                 Log.Info($"Set url - {value}");
-                webDriver.Url = value;
+                driver.Url = value;
             }
         }
+
         public static IWebElement FindElement(By locator) 
         {
             Log.Info($"Find element {locator.ToString()}");
             try 
             { 
-                return webDriver.FindElement(locator);
+                return driver.FindElement(locator);
             }
             catch(NoSuchElementException ex)
             {
@@ -56,82 +69,96 @@ namespace Test.Framework
                 return null;
             }
         }
+
         public static ReadOnlyCollection<IWebElement> FindElements(By locator)
         {
-            return webDriver.FindElements(locator);
+            return driver.FindElements(locator);
         }
+
         public static List<T> FindElements<T>(By locator) 
             where T : class, IElement, new()            
         {
             List<T> elements = new List<T>();
-            ReadOnlyCollection<IWebElement> webElements = webDriver.FindElements(locator);
+            ReadOnlyCollection<IWebElement> webElements = driver.FindElements(locator);
             foreach (IWebElement element in webElements)
             {
                 elements.Add(new T() { WebElement = element });
             }
             return elements;
-        }        
+        }  
+        
         public static void ExecuteScript(string javaScript) 
         {
             Log.Info($"Execute java script \"{javaScript}\"");
-            IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
             js.ExecuteScript(javaScript);
         }
-        public static IWebDriver GetWebDriver() 
+
+        public IWebDriver GetDriver() 
         {
-            return webDriver;
+            return driver;
         }
+
         public static IOptions Manage()
         {
-            return webDriver.Manage();
+            return driver.Manage();
         }
+
         public static INavigation Navigate()
         {
-            return webDriver.Navigate();
+            return driver.Navigate();
         }
+
         public static ITargetLocator SwitchTo()
         {
-            return webDriver.SwitchTo();
+            return driver.SwitchTo();
         }
+
         public static string Title {
             get
             {
-                return webDriver.Title;
+                return driver.Title;
             } 
         }
+
         public static string PageSource {
             get
             {
-                return webDriver.PageSource;
+                return driver.PageSource;
             } 
         }
+
         public static string CurrentWindowHandle {
             get
             {
-                return webDriver.CurrentWindowHandle;
+                return driver.CurrentWindowHandle;
             }
         }
+
         public static ReadOnlyCollection<string> WindowHandles {
             get
             {
-                return webDriver.WindowHandles;
+                return driver.WindowHandles;
             }
         }
+
         public void Quit() 
         {
             try { 
-                webDriver.Quit();
-                Log.Info($"{webDriver.GetType()} was quit.");
+                driver.Quit();
+                Log.Info($"{driver.GetType()} was quit.");
+                instanceWebDriver = null;
             }
             catch(Exception ex)
             {
                 Log.Fatal(ex, "Unexpected error occurred during quiting driver.");
             }
         }
+
         public void Close() 
         {
-            webDriver.Close();
-            Log.Info($"{webDriver.GetType()} was closed.");
+            driver.Close();
+            Log.Info($"{driver.GetType()} was closed.");
         }
     }
 }

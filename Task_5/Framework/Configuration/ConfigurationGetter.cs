@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Test.Framework.Logging;
-
 namespace Test.Framework.Configuration
 {
     public class ConfigurationGetter
@@ -12,7 +11,9 @@ namespace Test.Framework.Configuration
             var builder = new ConfigurationBuilder().AddJsonFile(fileName);
             GetConfiguration = builder.Build();            
         }
+
         public IConfiguration GetConfiguration { get; }
+
         public bool GetBooleanParam(string param)
         {
             string stringParam = null;
@@ -37,6 +38,7 @@ namespace Test.Framework.Configuration
                 return booleanParam;
             }
         }
+
         public string GetStringParam(string param)
         {
             string errorMessage = $"The param \"{param}\" is empty or invalid format. \"{param}\" can have one value of false or true.";
@@ -56,6 +58,7 @@ namespace Test.Framework.Configuration
                 return stringParam;
             }
         }
+
         public int GetIntParam(string param)
         {
             string stringParam = null;
@@ -85,6 +88,7 @@ namespace Test.Framework.Configuration
                 return intParam;
             }
         }
+
         public Queue<T> GetSectionWithArray<T>(string nameSection)
         {
             Log.Info($"Get section \"{nameSection}\" for class \"{typeof(T).ToString()}\"");

@@ -6,7 +6,7 @@ using Test.Framework.Logging;
 
 namespace Task_5.Utilits
 {
-    public static class ExcelData
+    public static class ExcelUtil
     {
         public static List<TestItem> GetData(string path)
         {
@@ -33,7 +33,7 @@ namespace Task_5.Utilits
                                 testItem.User.Password = range.Value2.ToString();
                                 break;
                             case 3:
-                                testItem.Product.OsName = range.Value2.ToString();
+                                testItem.Product.OperatingSystem = range.Value2.ToString();
                                 break;
                             case 4:
                                 testItem.Product.Name = range.Value2.ToString();

@@ -17,6 +17,7 @@ namespace Test.Framework.Elements
                 this.blockElement = value;
             }
         }
+
         public T FindInsideElement<T>(By insideElementLocator)
             where T : BaseElement, new()
         {
@@ -26,12 +27,7 @@ namespace Test.Framework.Elements
                 T baseElement = new T();                
                 baseElement.WebElement = blockElement.FindElement(insideElementLocator);
                 return baseElement;
-            }
-            catch (NoSuchElementException ex)
-            {
-                Log.Error(ex, $"Error occurred during finding elements {insideElementLocator} inside the current element {blockElement.TagName} which has class {blockElement.GetProperty("class")}.");
-                return null;
-            }
+            }            
             catch (Exception ex)
             {
                 Log.Error(ex, $"Unexpected error occurred during finding elements {insideElementLocator} inside the current element {blockElement.TagName} which has class {blockElement.GetProperty("class")}.");

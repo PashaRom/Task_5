@@ -6,7 +6,7 @@ using Test.Framework.Logging;
 
 namespace Task_5.Utilits
 {
-    public static class Html
+    public static class HtmlUtil
     {
         public static string GetAttribute(string html, string cssSelector, string attribute)
         {
